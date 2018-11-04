@@ -9,6 +9,7 @@ import android.location.LocationManager
 import android.os.Build
 import android.provider.Settings
 import android.provider.Settings.Secure.*
+import com.wahibhaq.locationservicelivedata.entity.GpsStatus
 import timber.log.Timber
 
 /**
@@ -28,15 +29,10 @@ class GpsStatusListener(private val context: Context) : LiveData<GpsStatus>() {
         checkGpsAndReact()
     }
 
-    private fun checkGpsAndReact() = if (isLocationEnabled()) {
-        postValue(GpsStatus.Enabled())
-    } else {
-        postValue(GpsStatus.Disabled())
-    }
+    private fun checkGpsAndReact() = postValue(if (isLocationEnabled()) GpsStatus.Enabled() else GpsStatus.Disabled())
 
     private fun isLocationEnabled() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        context.getSystemService(LocationManager::class.java)
-                .isProviderEnabled(LocationManager.GPS_PROVIDER)
+        context.getSystemService(LocationManager::class.java).isProviderEnabled(LocationManager.GPS_PROVIDER)
     } else {
         try {
             getInt(context.contentResolver, LOCATION_MODE) != LOCATION_MODE_OFF
@@ -53,9 +49,4 @@ class GpsStatusListener(private val context: Context) : LiveData<GpsStatus>() {
             IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
 
     private fun unregisterReceiver() = context.unregisterReceiver(gpsSwitchStateReceiver)
-}
-
-sealed class GpsStatus {
-    data class Enabled(val message: Int = R.string.gps_status_enabled) : GpsStatus()
-    data class Disabled(val message: Int = R.string.gps_status_disabled) : GpsStatus()
 }

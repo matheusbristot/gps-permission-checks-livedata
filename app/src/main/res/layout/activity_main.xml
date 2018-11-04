@@ -1,63 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
-    <TextView
-        android:id="@+id/gpsStatusDisplay"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnSimulateNotification"
-        android:layout_marginTop="40dp"
-        android:gravity="center_horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:text="@string/gps_status_disabled"/>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/permissionStatusDisplay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/gpsStatusDisplay"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gpsStatusDisplay"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:text="@string/permission_status_denied"
-        android:visibility="gone"/>
+        <TextView
+            android:id="@+id/text_view_gps_status_display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_simulate_notification"
+            android:layout_marginTop="40dp"
+            android:gravity="center_horizontal"
+            android:text="@string/gps_status_disabled"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnControlTracking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true"
-        android:text="@string/button_text_start"
-        android:enabled="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/permissionStatusDisplay"/>
+        <TextView
+            android:id="@+id/text_view_permission_status_display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_gps_status_display"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/permission_status_denied"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_gps_status_display" />
 
-    <Button
-        android:id="@+id/btnSimulateNotification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnControlTracking"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/simulate_notifications"
-        android:enabled="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnControlTracking"/>
+        <Button
+            android:id="@+id/button_control_tracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:enabled="true"
+            android:text="@string/button_text_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_permission_status_display" />
 
-</android.support.constraint.ConstraintLayout>
+        <Button
+            android:id="@+id/button_simulate_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_control_tracking"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:enabled="true"
+            android:text="@string/simulate_notifications"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_control_tracking" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

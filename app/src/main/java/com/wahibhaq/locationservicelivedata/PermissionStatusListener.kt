@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.content.Context
 import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
+import com.wahibhaq.locationservicelivedata.entity.PermissionStatus
 
 /**
  * Listens to Runtime Permission Status of provided [permissionToListen] which comes under the
@@ -18,15 +19,6 @@ class PermissionStatusListener(private val context: Context,
         val isPermissionGranted = ActivityCompat.checkSelfPermission(context,
                 permissionToListen) == PackageManager.PERMISSION_GRANTED
 
-        if (isPermissionGranted)
-            postValue(PermissionStatus.Granted())
-        else
-            postValue(PermissionStatus.Denied())
+        postValue(if (isPermissionGranted) PermissionStatus.Granted() else PermissionStatus.Denied())
     }
-}
-
-sealed class PermissionStatus {
-    data class Granted(val message: Int = R.string.permission_status_granted) : PermissionStatus()
-    data class Denied(val message: Int = R.string.permission_status_denied) : PermissionStatus()
-    data class Blocked(val message: Int = R.string.permission_status_blocked) : PermissionStatus()
 }

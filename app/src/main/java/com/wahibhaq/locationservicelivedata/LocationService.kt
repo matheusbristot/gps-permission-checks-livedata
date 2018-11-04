@@ -15,6 +15,8 @@ import android.os.Looper
 import android.provider.Settings
 import android.text.format.DateUtils
 import com.google.android.gms.location.*
+import com.wahibhaq.locationservicelivedata.entity.GpsStatus
+import com.wahibhaq.locationservicelivedata.entity.PermissionStatus
 import timber.log.Timber
 
 /**

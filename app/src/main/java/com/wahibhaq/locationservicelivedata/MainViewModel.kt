@@ -4,22 +4,30 @@ import android.Manifest
 import android.app.Application
 import android.app.NotificationManager
 import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.LiveData
 import android.content.Context
 import android.content.Intent
+import com.wahibhaq.locationservicelivedata.entity.GpsStatus
+import com.wahibhaq.locationservicelivedata.entity.PermissionStatus
 
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val locationServiceListener = LocationServiceListener(application, Intent(application,
-            LocationService::class.java))
+    val gpsStatusLiveData: LiveData<GpsStatus> = GpsStatusListener(application)
 
-    private val notificationsUtil = NotificationsUtil(application,
-            application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
+    val locationPermissionStatusLiveData: LiveData<PermissionStatus> = PermissionStatusListener(
+            application, Manifest.permission.ACCESS_FINE_LOCATION
+    )
 
-    val gpsStatusLiveData = GpsStatusListener(application)
+    private val notificationsUtil = NotificationsUtil(
+            application,
+            application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    )
 
-    val locationPermissionStatusLiveData = PermissionStatusListener(application,
-            Manifest.permission.ACCESS_FINE_LOCATION)
+    private val locationServiceListener = LocationServiceListener(
+            application,
+            Intent(application, LocationService::class.java)
+    )
 
     fun startLocationTracking() = locationServiceListener.subscribeToLocationUpdates()
 
@@ -27,5 +35,4 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         locationServiceListener.unsubscribeFromLocationUpdates()
         notificationsUtil.cancelAlertNotification()
     }
-
 }
